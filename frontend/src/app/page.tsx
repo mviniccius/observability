@@ -5,7 +5,9 @@ import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip,
   ResponsiveContainer, PieChart, Pie, Cell, Legend,
 } from 'recharts';
-import { RefreshCw, Activity, Clock, AlertTriangle, Database, Cpu, MemoryStick } from 'lucide-react';
+import { RefreshCw, Activity, Clock, AlertTriangle, Database, Cpu, MemoryStick, ExternalLink } from 'lucide-react';
+
+const GRAFANA_URL = process.env.NEXT_PUBLIC_GRAFANA_URL || 'http://localhost:3001';
 
 // ── Tipos ────────────────────────────────────────────────────────────────────
 
@@ -168,13 +170,24 @@ export default function DashboardPage() {
             {updatedAt && <span className="ml-2 text-slate-400">· última atualização: {updatedAt}</span>}
           </p>
         </div>
-        <button
-          onClick={() => { setLoading(true); fetchAll(); }}
-          className="flex items-center gap-2 text-sm text-primary hover:text-primary-dark font-medium transition-colors cursor-pointer"
-        >
-          <RefreshCw className="w-4 h-4" />
-          Atualizar
-        </button>
+        <div className="flex items-center gap-3">
+          <a
+            href={`${GRAFANA_URL}/d/observability-api`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 text-sm text-slate-500 hover:text-slate-800 font-medium transition-colors cursor-pointer border border-slate-200 rounded-lg px-3 py-2 hover:bg-white"
+          >
+            <ExternalLink className="w-4 h-4" />
+            Abrir Grafana
+          </a>
+          <button
+            onClick={() => { setLoading(true); fetchAll(); }}
+            className="flex items-center gap-2 text-sm text-primary hover:text-primary-dark font-medium transition-colors cursor-pointer border border-blue-200 rounded-lg px-3 py-2 hover:bg-blue-50"
+          >
+            <RefreshCw className="w-4 h-4" />
+            Atualizar
+          </button>
+        </div>
       </div>
 
       {noData && (
