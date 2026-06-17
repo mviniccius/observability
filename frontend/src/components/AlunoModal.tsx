@@ -15,6 +15,12 @@ const EMPTY: AlunoPayload = {
   logradouro: '', numero: '', complemento: '', bairro: '', cidade: '', estado: '', cep: '',
 };
 
+const ESTADOS = [
+  'AC','AL','AP','AM','BA','CE','DF','ES','GO',
+  'MA','MT','MS','MG','PA','PB','PR','PE','PI',
+  'RJ','RN','RS','RO','RR','SC','SP','SE','TO',
+];
+
 export default function AlunoModal({ aluno, onClose, onSaved }: Props) {
   const [form, setForm] = useState<AlunoPayload>(EMPTY);
   const [loading, setLoading] = useState(false);
@@ -110,7 +116,21 @@ export default function AlunoModal({ aluno, onClose, onSaved }: Props) {
               {field('complemento', 'Complemento')}
               {field('bairro', 'Bairro')}
               {field('cidade', 'Cidade')}
-              {field('estado', 'Estado', 'text', 'MG')}
+              <div>
+                <label htmlFor="estado" className="block text-sm font-medium text-slate-700 mb-1">Estado</label>
+                <select
+                  id="estado"
+                  name="estado"
+                  value={form.estado}
+                  onChange={handleChange}
+                  className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-colors bg-white cursor-pointer"
+                >
+                  <option value="">Selecione</option>
+                  {ESTADOS.map(uf => (
+                    <option key={uf} value={uf}>{uf}</option>
+                  ))}
+                </select>
+              </div>
               {field('cep', 'CEP', 'text', '00000-000')}
             </div>
           </div>
