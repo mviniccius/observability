@@ -1,0 +1,151 @@
+{
+  "info": {
+    "name": "Observabilidade de APIs — PUC Minas",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://174.138.34.172:3000",
+      "type": "string"
+    },
+    {
+      "key": "aluno_id",
+      "value": "1",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Health",
+      "item": [
+        {
+          "name": "Health Check",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/health",
+            "description": "Verifica se a API está online"
+          }
+        },
+        {
+          "name": "Métricas Prometheus",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/metrics",
+            "description": "Endpoint de métricas consumido pelo Prometheus"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Alunos",
+      "item": [
+        {
+          "name": "Listar todos os alunos",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/alunos",
+              "host": ["{{base_url}}"],
+              "path": ["api", "alunos"]
+            },
+            "description": "Retorna todos os alunos cadastrados"
+          }
+        },
+        {
+          "name": "Buscar alunos (search)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/alunos?search=Maria",
+              "host": ["{{base_url}}"],
+              "path": ["api", "alunos"],
+              "query": [{ "key": "search", "value": "Maria" }]
+            },
+            "description": "Filtra alunos por nome, CPF ou e-mail"
+          }
+        },
+        {
+          "name": "Buscar aluno por ID",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/api/alunos/{{aluno_id}}",
+            "description": "Retorna um aluno pelo ID"
+          }
+        },
+        {
+          "name": "Buscar aluno inexistente (404)",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/api/alunos/99999",
+            "description": "Demonstra o retorno 404 para IDs inexistentes"
+          }
+        },
+        {
+          "name": "Cadastrar aluno",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/api/alunos",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"João da Silva\",\n  \"data_nascimento\": \"2001-05-20\",\n  \"cpf\": \"987.654.321-00\",\n  \"telefone\": \"31988887777\",\n  \"email\": \"joao.silva@pucminas.br\",\n  \"logradouro\": \"Rua Dom Cabral\",\n  \"numero\": \"500\",\n  \"complemento\": \"Bloco B\",\n  \"bairro\": \"Coração Eucarístico\",\n  \"cidade\": \"Belo Horizonte\",\n  \"estado\": \"MG\",\n  \"cep\": \"30535-901\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "description": "Cadastra um novo aluno (retorna 201)"
+          }
+        },
+        {
+          "name": "Cadastrar aluno inválido (400)",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/api/alunos",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"\",\n  \"email\": \"invalido\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "description": "Demonstra validação — retorna 400 Bad Request"
+          }
+        },
+        {
+          "name": "Atualizar aluno completo (PUT)",
+          "request": {
+            "method": "PUT",
+            "url": "{{base_url}}/api/alunos/{{aluno_id}}",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"João da Silva Atualizado\",\n  \"data_nascimento\": \"2001-05-20\",\n  \"cpf\": \"987.654.321-00\",\n  \"telefone\": \"31999990000\",\n  \"email\": \"joao.atualizado@pucminas.br\",\n  \"logradouro\": \"Av. Dom Pedro II\",\n  \"numero\": \"1000\",\n  \"complemento\": \"\",\n  \"bairro\": \"São João\",\n  \"cidade\": \"Belo Horizonte\",\n  \"estado\": \"MG\",\n  \"cep\": \"30510-000\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "description": "Substitui todos os campos do aluno"
+          }
+        },
+        {
+          "name": "Atualizar aluno parcial (PATCH)",
+          "request": {
+            "method": "PATCH",
+            "url": "{{base_url}}/api/alunos/{{aluno_id}}",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"telefone\": \"31911112222\",\n  \"cidade\": \"Contagem\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "description": "Atualiza apenas os campos enviados"
+          }
+        },
+        {
+          "name": "Remover aluno (DELETE)",
+          "request": {
+            "method": "DELETE",
+            "url": "{{base_url}}/api/alunos/{{aluno_id}}",
+            "description": "Remove o aluno pelo ID (retorna 204 No Content)"
+          }
+        }
+      ]
+    }
+  ]
+}
