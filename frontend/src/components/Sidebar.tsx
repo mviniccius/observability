@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LayoutDashboard, Users, Activity } from 'lucide-react';
+import { LayoutDashboard, Users, Activity, Presentation } from 'lucide-react';
 
 const navItems = [
   { href: '/', label: 'Dashboard', icon: LayoutDashboard },
@@ -43,6 +43,16 @@ export default function Sidebar() {
           );
         })}
       </nav>
+
+      <div className="px-3 pb-3">
+        <Link
+          href="/apresentacao"
+          className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors duration-150 cursor-pointer bg-blue-600/20 hover:bg-blue-600/30 text-blue-300 border border-blue-600/30 w-full"
+        >
+          <Presentation className="w-5 h-5 flex-shrink-0" />
+          Apresentação
+        </Link>
+      </div>
 
       <div className="px-6 py-4 border-t border-slate-700">
         <div className="flex items-center gap-2">
