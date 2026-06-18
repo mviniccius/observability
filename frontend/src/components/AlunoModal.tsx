@@ -69,22 +69,22 @@ export default function AlunoModal({ aluno, onClose, onSaved }: Props) {
         value={form[name]}
         onChange={handleChange}
         placeholder={placeholder}
-        className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
+        className="w-full border border-slate-300 rounded-lg px-3 py-2.5 sm:py-2 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
       />
     </div>
   );
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center sm:p-4">
       <div className="absolute inset-0 bg-black/50" onClick={onClose} />
-      <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
-        <div className="flex items-center justify-between px-6 py-5 border-b border-slate-100">
+      <div className="relative bg-white rounded-t-2xl sm:rounded-2xl shadow-2xl w-full sm:max-w-2xl max-h-[95vh] sm:max-h-[90vh] overflow-y-auto">
+        <div className="flex items-center justify-between px-6 py-5 border-b border-slate-100 sticky top-0 bg-white z-10">
           <h2 className="text-lg font-semibold text-slate-800">
             {aluno ? 'Editar Aluno' : 'Novo Aluno'}
           </h2>
           <button
             onClick={onClose}
-            className="p-2 rounded-lg hover:bg-slate-100 transition-colors cursor-pointer"
+            className="p-2.5 rounded-lg hover:bg-slate-100 transition-colors cursor-pointer"
             aria-label="Fechar"
           >
             <X className="w-5 h-5 text-slate-500" />
@@ -98,8 +98,8 @@ export default function AlunoModal({ aluno, onClose, onSaved }: Props) {
             </div>
           )}
 
-          <div className="grid grid-cols-2 gap-4">
-            <div className="col-span-2">{field('nome', 'Nome completo *')}</div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="sm:col-span-2">{field('nome', 'Nome completo *')}</div>
             {field('data_nascimento', 'Data de nascimento *', 'date')}
             {field('cpf', 'CPF *', 'text', '000.000.000-00')}
             {field('email', 'E-mail *', 'email')}
@@ -110,8 +110,8 @@ export default function AlunoModal({ aluno, onClose, onSaved }: Props) {
             <p className="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-3">
               Endereço
             </p>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="col-span-2">{field('logradouro', 'Logradouro')}</div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="sm:col-span-2">{field('logradouro', 'Logradouro')}</div>
               {field('numero', 'Número')}
               {field('complemento', 'Complemento')}
               {field('bairro', 'Bairro')}
@@ -123,7 +123,7 @@ export default function AlunoModal({ aluno, onClose, onSaved }: Props) {
                   name="estado"
                   value={form.estado}
                   onChange={handleChange}
-                  className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-colors bg-white cursor-pointer"
+                  className="w-full border border-slate-300 rounded-lg px-3 py-2.5 sm:py-2 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-colors bg-white cursor-pointer"
                 >
                   <option value="">Selecione</option>
                   {ESTADOS.map(uf => (
@@ -135,18 +135,18 @@ export default function AlunoModal({ aluno, onClose, onSaved }: Props) {
             </div>
           </div>
 
-          <div className="flex gap-3 pt-2">
+          <div className="flex gap-3 pt-2 pb-2">
             <button
               type="button"
               onClick={onClose}
-              className="flex-1 border border-slate-300 text-slate-700 rounded-lg py-2.5 text-sm font-medium hover:bg-slate-50 transition-colors cursor-pointer"
+              className="flex-1 border border-slate-300 text-slate-700 rounded-lg py-3 text-sm font-medium hover:bg-slate-50 transition-colors cursor-pointer"
             >
               Cancelar
             </button>
             <button
               type="submit"
               disabled={loading}
-              className="flex-1 bg-primary hover:bg-primary-dark text-white rounded-lg py-2.5 text-sm font-medium transition-colors cursor-pointer disabled:opacity-60"
+              className="flex-1 bg-primary hover:bg-primary-dark text-white rounded-lg py-3 text-sm font-medium transition-colors cursor-pointer disabled:opacity-60"
             >
               {loading ? 'Salvando...' : 'Salvar'}
             </button>

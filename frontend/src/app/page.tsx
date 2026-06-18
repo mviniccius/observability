@@ -160,32 +160,32 @@ export default function DashboardPage() {
   const noData = !loading && rpsData.length === 0 && stats.rps === null;
 
   return (
-    <div className="p-8 min-h-screen bg-slate-50">
+    <div className="p-4 sm:p-8 min-h-screen bg-slate-50">
       {/* Header */}
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-6">
         <div>
           <h1 className="text-xl font-semibold text-slate-800">Dashboard de Observabilidade</h1>
           <p className="text-sm text-slate-500 mt-0.5">
             Métricas em tempo real · atualiza a cada 15s
-            {updatedAt && <span className="ml-2 text-slate-400">· última atualização: {updatedAt}</span>}
+            {updatedAt && <span className="ml-2 text-slate-400">· {updatedAt}</span>}
           </p>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3">
           <a
             href={`${GRAFANA_URL}/d/observability-api`}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 text-sm text-slate-500 hover:text-slate-800 font-medium transition-colors cursor-pointer border border-slate-200 rounded-lg px-3 py-2 hover:bg-white"
+            className="flex items-center gap-2 text-sm text-slate-500 hover:text-slate-800 font-medium transition-colors cursor-pointer border border-slate-200 rounded-lg px-3 py-2 hover:bg-white flex-1 sm:flex-none justify-center sm:justify-start"
           >
             <ExternalLink className="w-4 h-4" />
-            Abrir Grafana
+            <span className="sm:inline">Abrir Grafana</span>
           </a>
           <button
             onClick={() => { setLoading(true); fetchAll(); }}
-            className="flex items-center gap-2 text-sm text-primary hover:text-primary-dark font-medium transition-colors cursor-pointer border border-blue-200 rounded-lg px-3 py-2 hover:bg-blue-50"
+            className="flex items-center gap-2 text-sm text-primary hover:text-primary-dark font-medium transition-colors cursor-pointer border border-blue-200 rounded-lg px-3 py-2 hover:bg-blue-50 flex-1 sm:flex-none justify-center sm:justify-start"
           >
             <RefreshCw className="w-4 h-4" />
-            Atualizar
+            <span className="sm:inline">Atualizar</span>
           </button>
         </div>
       </div>
@@ -259,7 +259,7 @@ export default function DashboardPage() {
         {pieData.length === 0 ? (
           <div className="h-48 flex items-center justify-center text-slate-300 text-sm">Aguardando dados…</div>
         ) : (
-          <div className="flex items-center gap-8 flex-wrap">
+          <div className="flex flex-col sm:flex-row items-center gap-8">
             <ResponsiveContainer width={240} height={200}>
               <PieChart>
                 <Pie data={pieData} cx="50%" cy="50%" innerRadius={55} outerRadius={85} dataKey="value" paddingAngle={2}>
