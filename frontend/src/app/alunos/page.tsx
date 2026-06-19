@@ -53,8 +53,11 @@ export default function AlunosPage() {
   const totalPages = Math.ceil(alunos.length / PAGE_SIZE);
   const paginated = alunos.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
 
-  const formatDate = (d: string) =>
-    d ? new Date(d).toLocaleDateString('pt-BR') : '—';
+  const formatDate = (d: string) => {
+    if (!d) return '—';
+    const [y, m, day] = d.slice(0, 10).split('-');
+    return `${day}/${m}/${y}`;
+  };
 
   return (
     <div className="p-4 sm:p-8">

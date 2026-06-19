@@ -1,6 +1,8 @@
 const pool = require('../database/db');
 const { logger } = require('../middleware/logger');
 
+const nullIfEmpty = v => (v === '' || v == null ? null : v);
+
 const list = async (req, res) => {
   try {
     const { search } = req.query;
@@ -42,7 +44,10 @@ const create = async (req, res) => {
          (nome, data_nascimento, cpf, telefone, email, logradouro, numero, complemento, bairro, cidade, estado, cep)
        VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12)
        RETURNING *`,
-      [nome, data_nascimento, cpf, telefone, email, logradouro, numero, complemento, bairro, cidade, estado, cep]
+      [nome, data_nascimento, cpf,
+       nullIfEmpty(telefone), email,
+       nullIfEmpty(logradouro), nullIfEmpty(numero), nullIfEmpty(complemento),
+       nullIfEmpty(bairro), nullIfEmpty(cidade), nullIfEmpty(estado), nullIfEmpty(cep)]
     );
     return res.status(201).json(rows[0]);
   } catch (err) {
@@ -65,7 +70,11 @@ const update = async (req, res) => {
            updated_at=NOW()
        WHERE id=$13
        RETURNING *`,
-      [nome, data_nascimento, cpf, telefone, email, logradouro, numero, complemento, bairro, cidade, estado, cep, req.params.id]
+      [nome, data_nascimento, cpf,
+       nullIfEmpty(telefone), email,
+       nullIfEmpty(logradouro), nullIfEmpty(numero), nullIfEmpty(complemento),
+       nullIfEmpty(bairro), nullIfEmpty(cidade), nullIfEmpty(estado), nullIfEmpty(cep),
+       req.params.id]
     );
     if (rows.length === 0) return res.status(404).json({ error: 'Aluno não encontrado' });
     return res.json(rows[0]);

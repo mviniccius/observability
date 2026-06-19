@@ -57,6 +57,8 @@ export default function AlunoModal({ aluno, onClose, onSaved }: Props) {
     }
   };
 
+  const today = new Date().toISOString().slice(0, 10);
+
   const field = (name: keyof AlunoPayload, label: string, type = 'text', placeholder = '') => (
     <div>
       <label htmlFor={name} className="block text-sm font-medium text-slate-700 mb-1">
@@ -69,6 +71,7 @@ export default function AlunoModal({ aluno, onClose, onSaved }: Props) {
         value={form[name]}
         onChange={handleChange}
         placeholder={placeholder}
+        {...(type === 'date' ? { min: '1900-01-01', max: today } : {})}
         className="w-full border border-slate-300 rounded-lg px-3 py-2.5 sm:py-2 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
       />
     </div>
