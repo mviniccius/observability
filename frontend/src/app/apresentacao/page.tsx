@@ -19,7 +19,7 @@ const slides = [
         </div>
         <div className="flex-1 flex flex-col items-center justify-center text-center px-16 py-8">
           <p className="text-blue-600 text-base font-bold uppercase tracking-widest mb-6">
-            Trabalho Prático — 25 pontos
+            Trabalho Prático
           </p>
           <h1 className="text-slate-900 text-6xl font-bold leading-tight mb-4">
             Monitoramento e<br />Observabilidade de APIs
@@ -38,25 +38,26 @@ const slides = [
     ),
   },
 
-  // 2 — Objetivo
+  // 2 — Objetivos da apresentação (novo)
   {
     id: 2,
     content: (
       <div className="flex flex-col justify-center h-full px-16 py-8">
-        <p className="text-blue-600 text-base font-bold uppercase tracking-widest mb-3">Objetivo</p>
-        <h2 className="text-slate-900 text-5xl font-bold mb-8">O que o trabalho avalia?</h2>
-        <div className="space-y-3 max-w-3xl">
+        <p className="text-blue-600 text-base font-bold uppercase tracking-widest mb-3">Roteiro</p>
+        <h2 className="text-slate-900 text-5xl font-bold mb-8">Objetivos</h2>
+        <div className="grid grid-cols-1 gap-4 max-w-3xl">
           {[
-            ['Monitorar',    'Acompanhar o comportamento do sistema em tempo real'],
-            ['Analisar',     'Coletar e interpretar métricas operacionais da API'],
-            ['Identificar',  'Detectar gargalos e picos de uso'],
-            ['Desempenho',   'Compreender características de performance sob carga'],
-            ['Arquitetura',  'Demonstrar decisões com linguagem técnica adequada'],
-          ].map(([title, desc]) => (
-            <div key={String(title)} className="flex items-center gap-5 bg-blue-50 border border-blue-200 rounded-xl px-6 py-4">
-              <div className="w-2.5 h-2.5 rounded-full bg-blue-600 flex-shrink-0" />
-              <p className="text-slate-900 font-bold text-xl w-36 flex-shrink-0">{String(title)}</p>
-              <p className="text-slate-600 text-xl">{String(desc)}</p>
+            { num: '1', title: 'Entender o conceito de observabilidade', desc: 'O que é, origem e por que se tornou essencial em sistemas modernos.' },
+            { num: '2', title: 'Como funciona na prática', desc: 'Os três pilares (logs, métricas e traces) e a instrumentação sem alterar código.' },
+            { num: '3', title: 'Ganhos gerados pela adoção', desc: 'Diagnóstico mais rápido, redução de MTTR, confiabilidade e melhores decisões arquiteturais.' },
+            { num: '4', title: 'Exemplo prático com API real', desc: 'Aplicação Node.js com Prometheus + Grafana, demonstrando métricas e dashboards ao vivo.' },
+          ].map(({ num, title, desc }) => (
+            <div key={num} className="flex items-start gap-4 bg-blue-50 border border-blue-200 rounded-xl p-5">
+              <div className="w-9 h-9 rounded-full bg-blue-600 text-white flex items-center justify-center flex-shrink-0 font-bold text-lg">{num}</div>
+              <div>
+                <p className="text-slate-900 font-bold text-lg">{title}</p>
+                <p className="text-slate-600 text-base mt-0.5">{desc}</p>
+              </div>
             </div>
           ))}
         </div>
@@ -64,9 +65,330 @@ const slides = [
     ),
   },
 
-  // 3 — Cenário
+  // 3 — O que é Observabilidade (travessão removido, frase ajustada)
   {
     id: 3,
+    content: (
+      <div className="flex flex-col justify-center h-full px-16 py-8">
+
+        <p className="text-blue-600 text-base font-bold uppercase tracking-widest mb-3">
+          Conceitos
+        </p>
+
+        <h2 className="text-slate-900 text-5xl font-bold mb-10">
+          O que é Observabilidade?
+        </h2>
+
+        <div className="grid grid-cols-2 gap-6 max-w-6xl mb-8">
+
+          {/* Definição acadêmica */}
+
+          <div className="bg-blue-50 border border-blue-200 rounded-2xl p-8">
+            <p className="text-blue-700 text-sm font-bold uppercase tracking-wider mb-4">
+              Observability Engineering (2022)
+            </p>
+
+            <p className="text-slate-800 text-xl leading-relaxed">
+              "Observabilidade é a capacidade de compreender qualquer estado de um
+              sistema por meio de perguntas feitas sobre suas saídas externas."
+            </p>
+
+            <p className="text-slate-500 text-sm mt-6">
+              Majors, Fong-Jones e Miranda (2022)
+            </p>
+          </div>
+
+          {/* Definição didática */}
+
+          <div className="bg-slate-50 border border-slate-200 rounded-2xl p-8">
+            <p className="text-slate-700 text-sm font-bold uppercase tracking-wider mb-4">
+              Visão Prática
+            </p>
+
+            <p className="text-slate-800 text-xl leading-relaxed">
+              "Capacidade de compreender o estado interno de um sistema através dos
+              sinais que ele produz."
+            </p>
+
+            <p className="text-slate-500 text-sm mt-6">
+              Adaptado da explicação do canal Código Fonte TV
+            </p>
+          </div>
+
+        </div>
+
+        {/* Conclusão */}
+
+        <div className="bg-slate-900 rounded-2xl p-6 max-w-6xl mb-8">
+          <p className="text-white text-xl text-center">
+            Em sistemas modernos, esses sinais são representados principalmente por
+            <strong> Logs</strong>, <strong> Métricas</strong> e
+            <strong> Traces</strong>.
+          </p>
+        </div>
+
+        {/* Preview dos pilares */}
+
+        <div className="flex gap-4 max-w-5xl">
+
+          <div className="flex-1 bg-green-50 border border-green-200 rounded-xl p-4 text-center">
+            <div className="text-3xl mb-2">📄</div>
+            <p className="font-bold text-green-800">Logs</p>
+          </div>
+
+          <div className="flex-1 bg-blue-50 border border-blue-200 rounded-xl p-4 text-center">
+            <div className="text-3xl mb-2">📊</div>
+            <p className="font-bold text-blue-800">Métricas</p>
+          </div>
+
+          <div className="flex-1 bg-purple-50 border border-purple-200 rounded-xl p-4 text-center">
+            <div className="text-3xl mb-2">🔗</div>
+            <p className="font-bold text-purple-800">Traces</p>
+          </div>
+
+        </div>
+
+      </div>
+    )
+  },
+
+  // 4 — Contexto (voltou ao layout simples com citação + frase do livro)
+  {
+    id: 4,
+    content: (
+      <div className="flex flex-col justify-center h-full px-16 py-8">
+        <p className="text-blue-600 text-base font-bold uppercase tracking-widest mb-3">Contexto</p>
+        <h2 className="text-slate-900 text-5xl font-bold mb-8">Observabilidade × Monitoramento</h2>
+
+        <div className="grid grid-cols-2 gap-6 mb-8 max-w-4xl">
+
+          <div className="bg-orange-50 border border-orange-200 rounded-xl p-6">
+            <p className="text-orange-800 font-bold text-2xl mb-3">
+              Monitoramento
+            </p>
+
+            <ul className="space-y-2 text-slate-700 text-base">
+              <li>• Acompanha a saúde do sistema</li>
+              <li>• Dashboards e métricas pré-definidas</li>
+              <li>• Alertas para situações conhecidas</li>
+              <li>• Responde: "Existe algum problema?"</li>
+            </ul>
+          </div>
+
+          <div className="bg-green-50 border border-green-200 rounded-xl p-6">
+            <p className="text-green-800 font-bold text-2xl mb-3">
+              Observabilidade
+            </p>
+
+            <ul className="space-y-2 text-slate-700 text-base">
+              <li>• Analisa o comportamento do sistema</li>
+              <li>• Explora logs, métricas e traces</li>
+              <li>• Investiga causas de falhas</li>
+              <li>• Responde: "Por que isso aconteceu?"</li>
+            </ul>
+          </div>
+
+        </div>
+
+        <div className="bg-slate-50 border border-slate-300 rounded-xl p-4 max-w-4xl text-center">
+          <p className="text-slate-600 text-lg italic">
+            “Monitoring tells you <strong>when</strong> something is wrong; observability helps you understand <strong>why</strong>.”
+          </p>
+          <p className="text-slate-400 text-sm mt-2">
+            — Charity Majors, Liz Fong‑Jones, George Miranda · <em>Observability Engineering</em>
+          </p>
+          <p className="text-xs text-slate-400 mt-2">
+            📘 O livro defende que sistemas modernos são complexos demais para depender apenas de dashboards fixos — é preciso conseguir fazer perguntas <strong>ad‑hoc</strong> em produção.
+          </p>
+        </div>
+      </div>
+    ),
+  },
+
+  // 5 — Três Pilares
+  {
+    id: 5,
+    content: (
+      <div className="flex flex-col justify-center h-full px-16 py-8">
+        <p className="text-blue-600 text-base font-bold uppercase tracking-widest mb-3">Fundamentos</p>
+        <h2 className="text-slate-900 text-5xl font-bold mb-8">Três Pilares da Observabilidade</h2>
+
+        <div className="grid grid-cols-3 gap-5 max-w-5xl">
+          {/* Logging */}
+          <div className="bg-violet-50 border border-violet-200 rounded-xl p-5">
+            <p className="text-violet-800 font-bold text-xl mb-3">📄 Logging</p>
+            <p className="text-slate-600 text-sm mb-3">Registros estruturados de eventos</p>
+            <div className="bg-slate-900 rounded-lg p-3 text-xs font-mono text-green-400">
+              {`{
+  "timestamp": "2026-06-25T10:23:45Z",
+  "level": "error",
+  "message": "Falha ao conectar BD",
+  "trace_id": "abc123"
+}`}
+            </div>
+          </div>
+
+          {/* Métricas */}
+          <div className="bg-blue-50 border border-blue-200 rounded-xl p-5">
+            <p className="text-blue-800 font-bold text-xl mb-3">📊 Métricas</p>
+            <p className="text-slate-600 text-sm mb-3">Indicadores numéricos de desempenho (KPI)</p>
+            <div className="space-y-3">
+              <div className="bg-white rounded-lg p-3 border border-blue-100">
+                <p className="text-xs text-slate-500">Taxa de erros HTTP 5xx</p>
+                <p className="text-blue-800 text-lg font-mono font-bold">2,1 %</p>
+              </div>
+              <div className="bg-red-50 border border-red-200 rounded-lg p-3">
+                <p className="text-xs text-red-600 font-semibold">⚠ Alerta</p>
+                <p className="text-xs text-slate-600 mt-1">Se {'>'}5% por 5 min → notificar</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Tracing */}
+          <div className="bg-teal-50 border border-teal-200 rounded-xl p-5">
+            <p className="text-teal-800 font-bold text-xl mb-3">🔗 Tracing</p>
+            <p className="text-slate-600 text-sm mb-3">Rastreamento distribuído de requisições</p>
+            <div className="bg-white rounded-lg p-3 border border-teal-100 text-sm">
+              <p className="text-teal-800 font-mono font-bold">Trace ID: xyz123</p>
+              <div className="mt-2 space-y-1 text-xs">
+                <p>⬜ API Gateway — 12 ms</p>
+                <p className="ml-4">⬜ Auth Service — 10 ms</p>
+                <p className="ml-4">⬜ User Service — 45 ms</p>
+                <p className="ml-8">⬜ PostgreSQL — 20 ms</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    ),
+  },
+
+  // 6 — Ferramentas de Mercado
+  {
+    id: 6,
+    content: (
+      <div className="flex flex-col justify-center h-full px-16 py-8">
+        <p className="text-blue-600 text-base font-bold uppercase tracking-widest mb-3">Ecossistema</p>
+        <h2 className="text-slate-900 text-5xl font-bold mb-8">Ferramentas de Mercado</h2>
+        <div className="grid grid-cols-2 gap-8 max-w-5xl">
+
+          <div>
+            <h3 className="text-slate-900 text-2xl font-bold mb-4">
+              Open Source
+            </h3>
+
+            <div className="space-y-3">
+
+              {[
+                'Prometheus',
+                'Grafana',
+                'Loki',
+                'Jaeger',
+                'OpenTelemetry'
+              ].map(tool => (
+                <div
+                  key={tool}
+                  className="bg-blue-50 border border-blue-200 rounded-xl px-5 py-3"
+                >
+                  {tool}
+                </div>
+              ))}
+
+            </div>
+          </div>
+
+          <div>
+            <h3 className="text-slate-900 text-2xl font-bold mb-4">
+              Comerciais
+            </h3>
+
+            <div className="space-y-3">
+
+              {[
+                'Datadog',
+                'New Relic',
+                'Dynatrace'
+              ].map(tool => (
+                <div
+                  key={tool}
+                  className="bg-green-50 border border-green-200 rounded-xl px-5 py-3"
+                >
+                  {tool}
+                </div>
+              ))}
+
+            </div>
+          </div>
+
+        </div>
+
+        <div className="mt-8 bg-slate-50 border border-slate-200 rounded-xl p-5 max-w-4xl">
+          <p className="text-slate-700">
+            Para este trabalho foram escolhidos
+            <strong> Prometheus </strong>
+            e
+            <strong> Grafana </strong>
+            por serem open source, amplamente adotados pela indústria
+            e possuírem integração nativa para coleta e visualização de métricas.
+          </p>
+        </div>
+      </div>
+    ),
+  },
+
+  // ── Bloco prático (mantido a partir do slide 7) ─────────────────────────
+
+  {
+    id: 7,
+    content: (
+      <div className="flex flex-col justify-center items-center h-full px-16 py-8 text-center">
+
+        <p className="text-blue-600 text-base font-bold uppercase tracking-widest mb-3">
+          Transição
+        </p>
+
+        <h2 className="text-slate-900 text-6xl font-bold mb-10">
+          Da Teoria para a Prática
+        </h2>
+
+        <div className="bg-blue-50 border border-blue-200 rounded-2xl p-8 max-w-3xl">
+
+          <div className="space-y-4 text-left">
+
+            <p className="text-slate-700 text-xl">
+              ✓ Conceitos de observabilidade
+            </p>
+
+            <p className="text-slate-700 text-xl">
+              ✓ Monitoramento × Observabilidade
+            </p>
+
+            <p className="text-slate-700 text-xl">
+              ✓ Três pilares fundamentais
+            </p>
+
+            <p className="text-slate-700 text-xl">
+              ✓ Ferramentas utilizadas pelo mercado
+            </p>
+
+          </div>
+
+          <div className="h-px bg-blue-200 my-8" />
+
+          <p className="text-slate-900 text-2xl font-semibold">
+            Agora vamos demonstrar a implementação
+            desenvolvida para este trabalho.
+          </p>
+
+        </div>
+
+      </div>
+    )
+  },
+
+  // 8 — Cenário
+  {
+    id: 8,
     content: (
       <div className="flex flex-col justify-center h-full px-16 py-8">
         <p className="text-blue-600 text-base font-bold uppercase tracking-widest mb-3">Cenário</p>
@@ -81,20 +403,20 @@ const slides = [
           <div className="grid grid-cols-3 gap-y-2 gap-x-4">
             {['id', 'nome', 'data_nascimento', 'cpf', 'telefone', 'email',
               'logradouro', 'numero', 'complemento', 'bairro', 'cidade', 'estado', 'cep'].map(f => (
-              <div key={f} className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-blue-600 flex-shrink-0" />
-                <code className="text-blue-700 text-base font-mono">{f}</code>
-              </div>
-            ))}
+                <div key={f} className="flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-blue-600 flex-shrink-0" />
+                  <code className="text-blue-700 text-base font-mono">{f}</code>
+                </div>
+              ))}
           </div>
         </div>
       </div>
     ),
   },
 
-  // 4 — Arquitetura
+  // 9 — Arquitetura
   {
-    id: 4,
+    id: 9,
     content: (
       <div className="flex flex-col justify-center h-full px-16 py-8">
         <p className="text-blue-600 text-base font-bold uppercase tracking-widest mb-3">Solução</p>
@@ -123,6 +445,7 @@ const slides = [
           </div>
         </div>
 
+
         {/* Stack de observabilidade */}
         <p className="text-slate-400 text-sm font-semibold uppercase tracking-wider mb-3">Observabilidade</p>
         <div className="flex gap-4 flex-wrap">
@@ -143,21 +466,21 @@ const slides = [
     ),
   },
 
-  // 5 — API REST
+  // 10 — API REST
   {
-    id: 5,
+    id: 10,
     content: (
       <div className="flex flex-col justify-center h-full px-16 py-8">
         <p className="text-blue-600 text-base font-bold uppercase tracking-widest mb-3">Implementação</p>
         <h2 className="text-slate-900 text-5xl font-bold mb-7">API RESTful — Endpoints</h2>
         <div className="space-y-2 max-w-2xl">
           {[
-            { method: 'GET',    bg: 'bg-green-100 text-green-800',   path: '/api/alunos',     desc: 'Listar todos (busca opcional)' },
-            { method: 'GET',    bg: 'bg-green-100 text-green-800',   path: '/api/alunos/:id', desc: 'Buscar aluno por ID' },
-            { method: 'POST',   bg: 'bg-blue-100 text-blue-800',     path: '/api/alunos',     desc: 'Cadastrar novo aluno' },
-            { method: 'PUT',    bg: 'bg-yellow-100 text-yellow-800', path: '/api/alunos/:id', desc: 'Atualizar todos os campos' },
-            { method: 'PATCH',  bg: 'bg-orange-100 text-orange-800', path: '/api/alunos/:id', desc: 'Atualizar campos específicos' },
-            { method: 'DELETE', bg: 'bg-red-100 text-red-800',       path: '/api/alunos/:id', desc: 'Remover aluno' },
+            { method: 'GET', bg: 'bg-green-100 text-green-800', path: '/api/alunos', desc: 'Listar todos (busca opcional)' },
+            { method: 'GET', bg: 'bg-green-100 text-green-800', path: '/api/alunos/:id', desc: 'Buscar aluno por ID' },
+            { method: 'POST', bg: 'bg-blue-100 text-blue-800', path: '/api/alunos', desc: 'Cadastrar novo aluno' },
+            { method: 'PUT', bg: 'bg-yellow-100 text-yellow-800', path: '/api/alunos/:id', desc: 'Atualizar todos os campos' },
+            { method: 'PATCH', bg: 'bg-orange-100 text-orange-800', path: '/api/alunos/:id', desc: 'Atualizar campos específicos' },
+            { method: 'DELETE', bg: 'bg-red-100 text-red-800', path: '/api/alunos/:id', desc: 'Remover aluno' },
           ].map(({ method, bg, path, desc }) => (
             <div key={method + path} className="flex items-center gap-4 bg-slate-50 border border-slate-200 rounded-xl px-5 py-3">
               <span className={`${bg} font-mono font-bold text-sm px-2.5 py-1 rounded-lg w-20 text-center flex-shrink-0`}>{method}</span>
@@ -177,9 +500,9 @@ const slides = [
     ),
   },
 
-  // 6 — Stack de Observabilidade
+  // 11 — Stack de Observabilidade
   {
-    id: 6,
+    id: 11,
     content: (
       <div className="flex flex-col justify-center h-full px-16 py-8">
         <p className="text-blue-600 text-base font-bold uppercase tracking-widest mb-3">Observabilidade</p>
@@ -189,10 +512,10 @@ const slides = [
           <div className="flex-1 min-w-56 space-y-4">
             <p className="text-slate-400 text-sm uppercase tracking-wider font-semibold mb-2">Fluxo das métricas</p>
             {[
-              ['API recebe requisição',      'Middleware registra método, rota, status, duração'],
+              ['API recebe requisição', 'Middleware registra método, rota, status, duração'],
               ['prom-client expõe /metrics', 'Contadores e histogramas em formato Prometheus'],
-              ['Prometheus faz scrape',      'Coleta automaticamente a cada 10 segundos'],
-              ['Grafana consulta',           'Queries PromQL nos dashboards em tempo real'],
+              ['Prometheus faz scrape', 'Coleta automaticamente a cada 10 segundos'],
+              ['Grafana consulta', 'Queries PromQL nos dashboards em tempo real'],
             ].map(([title, desc], n) => (
               <div key={String(title)} className="flex gap-4">
                 <span className="w-8 h-8 rounded-full bg-blue-600 text-white text-sm flex items-center justify-center flex-shrink-0 font-bold">{n + 1}</span>
@@ -220,23 +543,23 @@ const slides = [
     ),
   },
 
-  // 7 — Métricas Obrigatórias
+  // 12 — Métricas Obrigatórias
   {
-    id: 7,
+    id: 12,
     content: (
       <div className="flex flex-col justify-center h-full px-16 py-8">
         <p className="text-blue-600 text-base font-bold uppercase tracking-widest mb-3">Requisito Principal</p>
         <h2 className="text-slate-900 text-5xl font-bold mb-8">Métricas Implementadas</h2>
         <div className="grid grid-cols-2 gap-3 max-w-3xl">
           {[
-            { metric: 'RPS',                   query: 'rate(http_requests_total[1m])' },
-            { metric: 'Tempo médio resposta',   query: 'histogram_sum / histogram_count' },
-            { metric: 'Tempo máximo (p99)',      query: 'histogram_quantile(0.99, ...)' },
-            { metric: 'Total de requisições',   query: 'http_requests_total' },
-            { metric: 'Percentual de erros',    query: 'http_errors_total / http_requests_total' },
-            { metric: 'Códigos HTTP',           query: 'label: status_code' },
-            { metric: 'Uso de CPU',             query: 'api_process_cpu_seconds_total' },
-            { metric: 'Logs estruturados',      query: 'Winston JSON — arquivo + console' },
+            { metric: 'RPS', query: 'rate(http_requests_total[1m])' },
+            { metric: 'Tempo médio resposta', query: 'histogram_sum / histogram_count' },
+            { metric: 'Tempo máximo (p99)', query: 'histogram_quantile(0.99, ...)' },
+            { metric: 'Total de requisições', query: 'http_requests_total' },
+            { metric: 'Percentual de erros', query: 'http_errors_total / http_requests_total' },
+            { metric: 'Códigos HTTP', query: 'label: status_code' },
+            { metric: 'Uso de CPU', query: 'api_process_cpu_seconds_total' },
+            { metric: 'Logs estruturados', query: 'Winston JSON — arquivo + console' },
           ].map(({ metric, query }) => (
             <div key={metric} className="flex items-start gap-3 bg-green-50 border border-green-200 rounded-xl px-4 py-3">
               <span className="text-green-600 text-xl font-bold flex-shrink-0 mt-0.5">✓</span>
@@ -251,9 +574,9 @@ const slides = [
     ),
   },
 
-  // 8 — Dashboard
+  // 13 — Dashboard
   {
-    id: 8,
+    id: 13,
     content: (
       <div className="flex flex-col justify-center h-full px-16 py-8">
         <p className="text-blue-600 text-base font-bold uppercase tracking-widest mb-3">Demo</p>
@@ -291,9 +614,9 @@ const slides = [
     ),
   },
 
-  // 9 — Critérios de Avaliação
+  // 14 — Critérios de Avaliação
   {
-    id: 9,
+    id: 14,
     content: (
       <div className="flex flex-col justify-center h-full px-16 py-8">
         <p className="text-blue-600 text-base font-bold uppercase tracking-widest mb-3">Avaliação</p>
@@ -320,9 +643,9 @@ const slides = [
     ),
   },
 
-  // 10 — Fim
+  // 15 — Fim
   {
-    id: 10,
+    id: 15,
     content: (
       <div className="flex flex-col h-full">
         <div className="bg-blue-600 px-16 py-8 flex-shrink-0">
@@ -355,7 +678,7 @@ const slides = [
   },
 ];
 
-// ── Componente ────────────────────────────────────────────────────────────────
+// ── Componente ──────────────────────────────────────────────────────────────
 
 export default function ApresentacaoPage() {
   const [current, setCurrent] = useState(0);
@@ -366,7 +689,7 @@ export default function ApresentacaoPage() {
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       if (e.key === 'ArrowRight' || e.key === 'ArrowDown') next();
-      if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   prev();
+      if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') prev();
     };
     window.addEventListener('keydown', handler);
     return () => window.removeEventListener('keydown', handler);
@@ -381,7 +704,7 @@ export default function ApresentacaoPage() {
         {slide.content}
       </div>
 
-      {/* Barra de navegação — tema claro */}
+      {/* Barra de navegação */}
       <div className="flex items-center justify-between px-8 py-4 bg-white border-t border-slate-200 flex-shrink-0">
         <button
           onClick={() => window.history.back()}
@@ -391,15 +714,13 @@ export default function ApresentacaoPage() {
           Fechar
         </button>
 
-        {/* Progress dots */}
         <div className="flex gap-2 items-center">
           {slides.map((_, i) => (
             <button
               key={i}
               onClick={() => setCurrent(i)}
-              className={`h-2 rounded-full transition-all duration-200 cursor-pointer ${
-                i === current ? 'bg-blue-600 w-6' : 'bg-slate-300 hover:bg-slate-400 w-2'
-              }`}
+              className={`h-2 rounded-full transition-all duration-200 cursor-pointer ${i === current ? 'bg-blue-600 w-6' : 'bg-slate-300 hover:bg-slate-400 w-2'
+                }`}
             />
           ))}
         </div>
